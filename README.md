@@ -132,7 +132,7 @@ So deep into tech my mom doesn't recognize me anymore ;-;
 
   <a href="https://github.com/shwetankg07">
     <img height="180em" src="https://github-readme-stats-eight-theta.vercel.app/api?username=shwetankg07&show_icons=true&theme=github_dark&bg_color=0d1117&hide_border=true&icon_color=58a6ff&title_color=58a6ff&text_color=8b949e&ring_color=1f6feb" />
-    <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=shwetankg07&background=0d1117&hide_border=true&stroke=161b22&ring=1f6feb&fire=58a6ff&currStreakLabel=58a6ff&sideLabels=8b949e&dates=555555" />
+    <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=shwetankg07&background=0d1117&hide_border=true&stroke=161b22&ring=1f6feb&fire=58a6ff&currStreakNum=58a6ff&currStreakLabel=58a6ff&sideNums=c9d1d9&sideLabels=8b949e&dates=8b949e" />
   </a>
 
   <br>
