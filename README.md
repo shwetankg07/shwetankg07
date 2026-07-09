@@ -7,7 +7,7 @@
 
 <div align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Cascadia+Code&weight=600&size=20&duration=4000&pause=1000&color=58A6FF&center=true&vCenter=true&repeat=true&width=800&height=45&lines=%E2%94%8C%E2%94%80(shwetank%40arch)%E2%94%80%5B~%5D;%E2%94%94%E2%94%80%24+not+in+the+dsa+rat+race%2C+i+ship+products;%24+git+commit+-m+%22scaling+businesses+with+tech%22;%24+yay+-Syu+%26%26+stay+building" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Cascadia+Code&weight=600&size=20&duration=4000&pause=1000&color=58A6FF&center=true&vCenter=true&repeat=true&width=800&height=45&lines=%E2%94%8C%E2%94%80(shwetank%40arch)%E2%94%80%5B~%5D;%E2%94%94%E2%94%80%24+I+ship+products;%24+git+commit+-m+%22scaling+businesses+with+tech%22;%24+yay+-Syu+%26%26+stay+building" alt="Typing SVG" />
   </a>
 </div>
 
@@ -44,7 +44,7 @@ currently:
 
 highlights:
   - scaled early-stage startups with product-driven business insights
-  - shipped & published my own npm package
+  - shipped & published my own npm packages
   - multiple-time hackathon qualifier
   - arch btw
 ```
@@ -210,7 +210,7 @@ So deep into tech my mom doesn't recognize me anymore ;-;
 
 <br><br>
 
-<samp><i>"not in the dsa rat race — i ship products."</i></samp>
+<samp><i>"i ship products."</i></samp>
 
 <br><br>
 
