@@ -1,0 +1,37 @@
+{
+  "packages": [
+    { "name": "shwetank", "npm": "shwetank", "registries": ["npm", "aur"], "lang": "JavaScript",
+      "note": "a business card for your terminal", "install": "npx shwetank",
+      "href": "https://www.npmjs.com/package/shwetank" },
+    { "name": "make-npx-card", "npm": "make-npx-card", "registries": ["npm"], "lang": "JavaScript",
+      "note": "mint your own npx <you> card", "install": "npx make-npx-card",
+      "href": "https://www.npmjs.com/package/make-npx-card" },
+    { "name": "shellmon", "npm": "shellmon", "registries": ["npm"], "lang": "JavaScript",
+      "note": "a terminal pet that eats your commits", "install": "npx shellmon",
+      "href": "https://www.npmjs.com/package/shellmon" },
+    { "name": "kbrgb", "pypi": "kbrgb", "registries": ["pypi", "aur"], "lang": "Python",
+      "note": "rgb for acer predator/nitro keyboards", "install": "yay -S kbrgb",
+      "href": "https://pypi.org/project/kbrgb/" }
+  ],
+  "prs": [
+    "PXDiv/Div-Acer-Manager-Max#220",
+    "cleyton1986/predator-sense#16",
+    "cleyton1986/predator-sense#18",
+    "Ritesh381/Scaler-extension#23"
+  ],
+  "projects": [
+    { "repo": "RailRaag", "note": "every train in india, drawn in light. raw webgl2, zero deps" },
+    { "repo": "railpull", "note": "pulls the live timetable out of NTES. the data under RailRaag" },
+    { "repo": "kbrgb", "note": "rgb for acer predator/nitro keyboards on linux. aur + pypi" },
+    { "repo": "chalYaaar", "note": "i build the tech at a run club. small, somehow already in profit",
+      "href": "https://instagram.com/chalyaaar", "private": { "language": "JavaScript", "size": 26912 } },
+    { "repo": "shwetank.dev", "note": "my site, built like a package page, with a real shell" },
+    { "repo": "waterlily", "note": "offline pdf highlighter with handwritten notes" },
+    { "repo": "loopback", "note": "dsa playground that compiles c++/java/python in the tab" },
+    { "repo": "shellmon", "note": "a terminal pet that eats your commits" },
+    { "repo": "make-npx-card", "note": "mint your own npx <you> business card" },
+    { "repo": "CipherDrop", "note": "zero-knowledge file transfer. the key lives in the url hash" },
+    { "repo": "KeysGoBrrr", "note": "a monkeytype-style typing bar over any page" },
+    { "repo": "great-consolidation", "note": "npm trees shrank, packages exploded. measured daily" }
+  ]
+}
