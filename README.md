@@ -1,5 +1,5 @@
 <p>
-<a href="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/solar-dark.svg"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/solar-dark.svg"><img alt="shwetank's public repos drawn as an animated solar system" src="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/solar-light.svg" width="100%"></picture></a>
+<a href="https://shwetankg07.github.io/shwetankg07/solar-dark.svg"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/solar-dark.svg"><img alt="shwetank's public repos drawn as an animated solar system" src="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/solar-light.svg" width="100%"></picture></a>
 </p>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/key-dark.svg"><img alt="key: the sun is me, planets are public repos sized by code and coloured by language, newer ones orbit closer, rings are published packages, moons are sub-projects and merged PRs, comets were pushed today, the probe is a daily bot" src="https://raw.githubusercontent.com/shwetankg07/shwetankg07/output/key-light.svg" width="100%"></picture>
