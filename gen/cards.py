@@ -425,7 +425,7 @@ def key(th):
         out.append(f'<g transform="translate({cx + 14},{cy})">{glyph}</g>')
         out.append(title_txt(cx + 38, cy - 3, term, 13, ink, th) + txt(cx + 38, cy + 13, meaning, 11, mut, th))
     out.append(f'<line x1="22" x2="{w - 22}" y1="112" y2="112" stroke="{th["faint"]}"/>')
-    out.append(txt(w / 2, 134, "orbit speeds follow kepler's third law · glow is stars · redrawn every six hours", 11.5, mut, th, anchor="middle"))
+    out.append(txt(w / 2, 134, "click the system to open it, then any planet · orbits follow kepler · glow is stars · redrawn every 6h", 11.5, mut, th, anchor="middle"))
     return svg(w, h, "".join(out), "key: sun is me, planets are repos sized by code and coloured by language, "
                "newer repos orbit closer, rings mean published, moons are sub-projects and merged PRs, "
                "comets were pushed today, the probe is a daily bot")

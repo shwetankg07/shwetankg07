@@ -2,20 +2,56 @@
   "user": "shwetankg07",
   "probe": "great-consolidation",
   "planets": [
-    { "repo": "waterlily" },
-    { "repo": "loopback" },
-    { "repo": "shwetank.dev", "ring": true, "moons": ["npx-card"] },
-    { "repo": "kbrgb", "ring": true, "moons": 3 },
-    { "repo": "RailRaag", "moons": ["railpull"] },
-    { "repo": "shellmon", "ring": true },
-    { "repo": "make-npx-card", "ring": true },
-    { "repo": "KeysGoBrrr" },
-    { "repo": "CipherDrop" },
-    { "repo": "LeetCode-Exporter" },
+    {
+      "repo": "waterlily"
+    },
+    {
+      "repo": "loopback"
+    },
+    {
+      "repo": "shwetank.dev",
+      "ring": true,
+      "moons": [
+        "npx-card"
+      ]
+    },
+    {
+      "repo": "kbrgb",
+      "ring": true,
+      "moons": 3
+    },
+    {
+      "repo": "RailRaag",
+      "moons": [
+        "railpull"
+      ]
+    },
+    {
+      "repo": "shellmon",
+      "ring": true
+    },
+    {
+      "repo": "make-npx-card",
+      "ring": true
+    },
+    {
+      "repo": "KeysGoBrrr"
+    },
+    {
+      "repo": "CipherDrop"
+    },
+    {
+      "repo": "LeetCode-Exporter"
+    },
     {
       "repo": "chalYaaar",
       "moons": 6,
-      "private": { "language": "JavaScript", "size": 26912, "created_at": "2026-05-27" }
+      "private": {
+        "language": "JavaScript",
+        "size": 26912,
+        "created_at": "2026-05-27"
+      },
+      "href": "https://instagram.com/chalyaaar"
     }
   ]
 }

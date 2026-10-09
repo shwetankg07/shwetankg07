@@ -24,6 +24,7 @@ import struct
 import sys
 import urllib.request
 import zlib
+from xml.sax.saxutils import escape
 from datetime import datetime, timedelta, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -96,6 +97,10 @@ def fetch(user):
 def model(cfg, repos):
     user, probe = cfg["user"], cfg["probe"]
     taken = {user, probe}
+    try:  # the one-liners shown on the cards double as hover text here
+        notes = {p["repo"]: p["note"] for p in json.load(open(os.path.join(HERE, "cards.json")))["projects"]}
+    except (OSError, ValueError, KeyError):
+        notes = {}
     planets = []
     for p in cfg["planets"]:
         src = p.get("private") or repos.get(p["repo"])
@@ -115,6 +120,8 @@ def model(cfg, repos):
             "created": src["created_at"],
             "ring": p.get("ring", False),
             "moons": moons,
+            "href": p.get("href") or f"https://github.com/{user}/{p['repo']}",
+            "note": notes.get(p["repo"], ""),
         })
     planets.sort(key=lambda p: p["created"], reverse=True)  # newest orbit closest
     n = len(planets)
@@ -132,6 +139,7 @@ def model(cfg, repos):
     ]
     recent.sort(key=lambda r: r["pushed_at"], reverse=True)
     return {
+        "user": user,
         "planets": planets,
         "probe": probe if probe in repos else None,
         "belt": sorted(n for n in repos if n not in taken),
@@ -302,7 +310,13 @@ def sky_texture():
     return png(w, h, px, 3)
 
 
-# --- pieces ----------------------------------------------------------------
+# --- pieces --------------------------------------------------------------
+
+def link(href, tip, inner):
+    """only works when the SVG is opened on its own: inside an <img> nothing
+    is clickable, so the README links the whole picture to this file"""
+    return f'<a href="{escape(href)}"><title>{escape(tip)}</title>{inner}</a>'
+
 
 def orbiting(r, T, delay, body, layer, arm=""):
     """body drawn at radius r around the current origin, on the 'f'ront or
@@ -393,7 +407,8 @@ def planet(p, i, th):
     if not th["dark"]:
         arm = (f'<line x2="{p["r"]:.1f}" stroke="{th["brass"]}" stroke-width="1.1" '
                f'vector-effect="non-scaling-stroke" opacity=".85"/>')
-    return "".join(defs), (lambda layer: orbiting(p["r"], T, delay, inner, layer, arm))
+    tip = f"{p['name']}: {p['note']}" if p["note"] else p["name"]
+    return "".join(defs), (lambda layer: link(p["href"], tip, orbiting(p["r"], T, delay, inner, layer, arm)))
 
 
 def trail(p, th):
@@ -416,6 +431,7 @@ def probe_body(name, th):
     ink = th["probe"]
     panel = "#1f6feb" if th["dark"] else "none"
     return (
+        '<circle r="15" fill="transparent"/>'  # it's tiny, give the cursor something to land on
         f'<rect x="-13" y="-1.6" width="8" height="3.2" fill="{panel}" stroke="{ink}" stroke-width=".6"/>'
         f'<rect x="5" y="-1.6" width="8" height="3.2" fill="{panel}" stroke="{ink}" stroke-width=".6"/>'
         f'<rect x="-3.5" y="-2.5" width="7" height="5" rx="1" fill="{ink}"/>'
@@ -456,9 +472,10 @@ def comet(k, name, th):
         pct = f"{100 * s / n:.2f}%"
         pos.append(f"{pct}{{transform:translate({x:.1f}px,{y:.1f}px)}}")
         tail.append(f"{pct}{{transform:rotate({ang:.1f}deg) scale({min(2.4, max(.5, 190 / math.hypot(x, y))):.2f},1)}}")
-        near.append(f"{pct}{{opacity:{1 if y > 0 else 0}}}")
-    far = [s.replace("opacity:1", "opacity:X").replace("opacity:0", "opacity:1").replace("opacity:X", "opacity:0")
-           for s in near]
+        near.append(f"{pct}{{{'opacity:1;visibility:visible' if y > 0 else 'opacity:0;visibility:hidden'}}}")
+    flip = {"opacity:1;visibility:visible": "opacity:0;visibility:hidden",
+            "opacity:0;visibility:hidden": "opacity:1;visibility:visible"}
+    far = [k.split("{")[0] + "{" + flip[k.split("{")[1].rstrip("}")] + "}" for k in near]
     css = (f"@keyframes cp{k}{{{''.join(pos)}}}@keyframes ct{k}{{{''.join(tail)}}}"
            f"@keyframes cf{k}{{{''.join(near)}}}@keyframes cb{k}{{{''.join(far)}}}")
     delay = T * (0.9 - 0.3 * k) % T  # the first one is diving at the sun on load
@@ -701,17 +718,22 @@ def render(m, th):
         bodies.append(draw)
     if m["probe"]:
         T, body = period(PROBE_R), probe_body(m["probe"], th)
-        bodies.insert(0, lambda layer, T=T, body=body: orbiting(PROBE_R, T, T * .3, body, layer))
+        href, tip = f"https://github.com/{m['user']}/{m['probe']}", f"{m['probe']}: the bot that commits daily"
+        bodies.insert(0, lambda layer, T=T, body=body: link(href, tip, orbiting(PROBE_R, T, T * .3, body, layer)))
 
     comets = []
     for k, name in enumerate(m["comets"]):
         css, copies = comet(k, name, th)
         extra_css.append(css)
-        comets.append(copies)
+        comets.append({side: link(f"https://github.com/{m['user']}/{name}", f"{name}: pushed today", svg)
+                       for side, svg in copies.items()})
 
     back = "".join(b("b") for b in reversed(bodies)) + "".join(c["b"] for c in comets)
     parts.append(f'<g transform="{system}" opacity=".85">{back}</g>')
     parts.append(sun(th))
+    # only the disc links, the glow and corona would swallow clicks meant for planets behind them
+    parts.append(link("https://shwetank.is-a.dev", "the sun is me: shwetank.is-a.dev",
+                      f'<circle cx="{CX}" cy="{CY}" r="{SUN_R if th["dark"] else 30}" fill="transparent"/>'))
     parts.append(orbit_layer("f", 1.3))
     front = "".join(b("f") for b in bodies) + "".join(c["f"] for c in comets)
     parts.append(f'<g transform="{system}">{front}</g>')
@@ -731,8 +753,8 @@ def render(m, th):
         ".o{animation-name:spin}.c{animation-name:unspin}.f{animation-name:front}.b{animation-name:back}"
         ".d{animation-name:depth}.s{animation-name:shade}.roll{animation-name:roll}"
         "@keyframes spin{to{transform:rotate(360deg)}}@keyframes unspin{to{transform:rotate(-360deg)}}"
-        "@keyframes front{0%,49.9%{opacity:1}50%,100%{opacity:0}}"
-        "@keyframes back{0%,49.9%{opacity:0}50%,100%{opacity:1}}"
+        "@keyframes front{0%,49.9%{opacity:1;visibility:visible}50%,100%{opacity:0;visibility:hidden}}"
+        "@keyframes back{0%,49.9%{opacity:0;visibility:hidden}50%,100%{opacity:1;visibility:visible}}"
         "@keyframes roll{to{transform:translateX(-4px)}}"
         ".tw{animation:tw ease-in-out infinite alternate}@keyframes tw{from{opacity:.1}}"
         ".pulse{animation:pulse 6s ease-in-out infinite alternate}@keyframes pulse{to{transform:scale(1.07)}}"
@@ -742,12 +764,14 @@ def render(m, th):
         f".sm{{font-size:{'11px' if th['dark'] else '12px'};opacity:.8}}"
         ".sub{font-size:14px}.st{text-anchor:start}.en{text-anchor:end}"
         f".title{{font:600 17px {th['font']};letter-spacing:.32em;fill:{th['label']}}}"
+        f"svg{{pointer-events:none;background:{'#0d1117' if th['dark'] else '#e4d4b2'}}}"
+        f"a{{pointer-events:auto;cursor:pointer}}a:hover .lb{{fill:{'#79c0ff' if th['dark'] else '#a8834a'}}}"
         "@media (prefers-reduced-motion:reduce){*{animation-play-state:paused!important}}"
         + keyframes() + "".join(extra_css)
     )
     names = ", ".join(p["name"] for p in m["planets"])
     return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" role="img" '
         f'aria-label="An animated solar system of shwetank\'s GitHub repos: {names}">'
         f"<title>shwetank's repos as a solar system</title>"
         f'<defs>{"".join(defs)}</defs><style>{css}</style>{"".join(parts)}</svg>'
